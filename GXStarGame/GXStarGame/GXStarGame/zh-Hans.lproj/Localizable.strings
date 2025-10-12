@@ -1,0 +1,35 @@
+/* 
+  Localizable.strings
+  GXStarGame - 中文简体
+
+  Created on 2025-10-12.
+  
+*/
+
+// 主界面
+"game.title" = "✨ 星辰消消乐 ✨";
+"game.score" = "🏆 分数: %d";
+"game.reset" = "🔄 重新开始";
+
+// 游戏结束
+"game.over.title" = "🎮 游戏结束";
+"game.over.message" = "没有可用的移动了！\n\n🏆 最终分数: %d";
+"game.over.restart" = "重新开始";
+"game.over.cancel" = "取消";
+
+// 启动页
+"launch.title" = "星辰消消乐";
+"launch.subtitle" = "GX Star Game";
+
+// 菜单
+"menu.start" = "🎮 开始游戏";
+"menu.settings" = "⚙️ 设置";
+
+// 设置
+"settings.music" = "背景音乐";
+"settings.sound" = "游戏音效";
+"settings.about" = "关于";
+"settings.close" = "完成";
+"settings.support" = "技术支持";
+
+

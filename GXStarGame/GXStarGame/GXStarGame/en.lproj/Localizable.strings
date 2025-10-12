@@ -1,0 +1,35 @@
+/* 
+  Localizable.strings
+  GXStarGame - English
+
+  Created on 2025-10-12.
+  
+*/
+
+// Main Interface
+"game.title" = "✨ Star Match ✨";
+"game.score" = "🏆 Score: %d";
+"game.reset" = "🔄 New Game";
+
+// Game Over
+"game.over.title" = "🎮 Game Over";
+"game.over.message" = "No more moves available!\n\n🏆 Final Score: %d";
+"game.over.restart" = "Restart";
+"game.over.cancel" = "Cancel";
+
+// Launch Screen
+"launch.title" = "Star Match";
+"launch.subtitle" = "GX Star Game";
+
+// Menu
+"menu.start" = "🎮 Start Game";
+"menu.settings" = "⚙️ Settings";
+
+// Settings
+"settings.music" = "Background Music";
+"settings.sound" = "Sound Effects";
+"settings.about" = "About";
+"settings.close" = "Done";
+"settings.support" = "Tech Support";
+
+
