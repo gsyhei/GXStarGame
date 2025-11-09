@@ -1,6 +1,6 @@
-# Star Match - Technical Support
+# Star Magician - Technical Support
 
-**Welcome to Star Match Technical Support Center!** 🎮✨
+**Welcome to Star Magician Technical Support Center!** 🎮✨
 
 We are committed to providing you with the best gaming experience. If you encounter any issues while using the app, please refer to the following content or contact us.
 
@@ -147,7 +147,7 @@ Send an email to: **279694479@qq.com**
 
 ### Email Template
 ```
-Subject: [Star Match] Bug Report - Brief Issue Description
+Subject: [Star Magician] Bug Report - Brief Issue Description
 
 Problem Description:
 (Describe the issue in detail)
@@ -184,7 +184,7 @@ We welcome your feature suggestions and improvement ideas!
 ### How to Submit Suggestions
 Send an email to: **279694479@qq.com**
 
-**Email Subject Format:** `[Star Match] Feature Suggestion - Your Suggestion Title`
+**Email Subject Format:** `[Star Magician] Feature Suggestion - Your Suggestion Title`
 
 **Please include:**
 1. Description of the suggested feature
@@ -243,7 +243,7 @@ Send an email to: **279694479@qq.com**
 1. Open App Store
 2. Tap your profile icon in the top right
 3. Scroll down to "Available Updates"
-4. Find "Star Match" and tap "Update"
+4. Find "Star Magician" and tap "Update"
 
 ---
 
@@ -273,7 +273,7 @@ Follow our social media accounts for the latest updates and events.
 ## 📋 Other Resources
 
 ### Official Channels
-- **App Store**: Search "Star Match"
+- **App Store**: Search "Star Magician"
 - **Technical Support Email**: 279694479@qq.com
 - **Developer**: GX Team
 
@@ -296,7 +296,7 @@ Email subject should indicate: [Business Cooperation]
 
 - **Copyright** © 2025 GX Team
 - **Developer**: GX Team
-- **App Name**: Star Match / 星辰消消乐
+- **App Name**: Star Magician / 星辰魔法师
 - **Rights**: All rights reserved
 
 Reverse engineering, cracking, modifying, or redistributing this application without permission is prohibited.
@@ -305,7 +305,7 @@ Reverse engineering, cracking, modifying, or redistributing this application wit
 
 ## 💬 Final Words
 
-Thank you for choosing Star Match! We will continue to improve the game to provide you with a better experience.
+Thank you for choosing Star Magician! We will continue to improve the game to provide you with a better experience.
 
 If you have any questions, suggestions, or feedback, please feel free to contact us:
 

@@ -1,8 +1,8 @@
-# Star Match - Terms of Service
+# Star Magician - Terms of Service
 
 **Last Updated: October 12, 2025**
 
-Welcome to Star Match (hereinafter referred to as "the App" or "we")!
+Welcome to Star Magician (hereinafter referred to as "the App" or "we")!
 
 Before using the App, please read and fully understand all the contents of these Terms. If you do not agree with any part of these Terms, please do not use the App. By using the App, you acknowledge that you have read, understood, and agreed to be bound by these Terms.
 
@@ -121,7 +121,7 @@ Before using the App, please read and fully understand all the contents of these
 
 If you have any questions, comments, or suggestions regarding these Terms, please contact us through:
 
-- **App Name**: Star Match / 星辰消消乐
+- **App Name**: Star Magician / 星辰魔法师
 - **Developer**: GX Team
 - **Email**: support@gxstargame.com (please modify according to actual situation)
 - **Feedback**: App Store review section
@@ -140,7 +140,7 @@ We will process and respond to your feedback as soon as possible.
 
 ---
 
-**Thank you again for using Star Match! Enjoy the game!** 🎮✨
+**Thank you again for using Star Magician! Enjoy the game!** 🎮✨
 
 ---
 

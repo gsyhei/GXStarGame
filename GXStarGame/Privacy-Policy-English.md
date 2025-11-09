@@ -1,8 +1,8 @@
-# Star Match - Privacy Policy
+# Star Magician - Privacy Policy
 
 **Last Updated: October 12, 2025**
 
-Thank you for using Star Match (hereinafter referred to as "the App" or "we")!
+Thank you for using Star Magician (hereinafter referred to as "the App" or "we")!
 
 We take your privacy protection and personal information security very seriously. This Privacy Policy explains how we collect, use, store, share, and protect your personal information, as well as your related rights.
 
@@ -12,7 +12,7 @@ Please read and fully understand this Privacy Policy before using the App. If yo
 
 ## 1. Scope
 
-This Privacy Policy applies to all services provided by the Star Match mobile application.
+This Privacy Policy applies to all services provided by the Star Magician mobile application.
 
 ---
 
@@ -209,7 +209,7 @@ The formulation, execution, and interpretation of this Privacy Policy are govern
 If you have any questions, comments, or suggestions about this Privacy Policy, or need to exercise your rights, please contact us through:
 
 ### Contact Information
-- **App Name**: Star Match / 星辰消消乐
+- **App Name**: Star Magician / 星辰魔法师
 - **Developer**: GX Team
 - **Email**: privacy@gxstargame.com (please modify according to actual situation)
 - **Feedback Channel**: App Store review section
@@ -230,7 +230,7 @@ We will respond to your request within 15 business days.
 
 ---
 
-**Thank you for trusting and using Star Match!** 🎮🔒
+**Thank you for trusting and using Star Magician!** 🎮🔒
 
 We will continue to work hard to protect your privacy and data security!
 
@@ -251,7 +251,7 @@ _Developer: GX Team_
 
 ---
 
-**Important Notice**: This Privacy Policy applies only to the Star Match app itself. If you access third-party links through the App, please note that the third-party website or service has its own independent privacy policy.
+**Important Notice**: This Privacy Policy applies only to the Star Magician app itself. If you access third-party links through the App, please note that the third-party website or service has its own independent privacy policy.
 
 
 

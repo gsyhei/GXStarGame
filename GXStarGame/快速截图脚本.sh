@@ -1,209 +1,154 @@
 #!/bin/bash
 
-# 星辰消消乐 - App Store 截图自动化脚本
+# 星辰魔法师 - App Store 截图自动化脚本
 # 使用方法：chmod +x 快速截图脚本.sh && ./快速截图脚本.sh
 
-echo "🎮 星辰消消乐 - 截图工具"
-echo "========================"
+set -e
+
+echo "🎮 星辰魔法师 - 全自动截图工具"
+echo "================================"
 echo ""
 
-# 创建截图目录
+# 截图目录
 SCREENSHOT_DIR="$HOME/Desktop/GXStarGame-Screenshots"
 mkdir -p "$SCREENSHOT_DIR"
 
 echo "📁 截图将保存到: $SCREENSHOT_DIR"
 echo ""
 
-# 支持的模拟器列表
+# 支持的模拟器（名称|屏幕尺寸标签）
 SIMULATORS=(
-    "iPhone 14 Pro Max"
-    "iPhone 11 Pro Max"
-    "iPhone 8 Plus"
+    "iPhone 17 Pro Max|6.9"
+    "iPhone 14 Pro Max|6.7"
+    "iPhone 11 Pro Max|6.5"
+    "iPhone 8 Plus|5.5"
 )
 
-# 选择模拟器
-echo "请选择要使用的模拟器："
-echo "1) iPhone 14 Pro Max (6.7\" - 1290x2796)"
-echo "2) iPhone 11 Pro Max (6.5\" - 1242x2688)"
-echo "3) iPhone 8 Plus (5.5\" - 1242x2208)"
-echo "4) 全部（自动在三个模拟器上截图）"
-echo ""
-read -p "请输入选项 (1-4): " choice
+# 截图描述与文件后缀（描述|后缀）
+SHOT_SPECS=(
+    "主菜单（标题与完整布局）|menu"
+    "游戏进行中（选中宝石）|selected"
+    "消除瞬间（动画效果）|match"
+    "高分展示（分数较高）|highscore"
+    "修炼结束（游戏结束弹窗）|gameover"
+)
 
-case $choice in
-    1)
-        SELECTED_SIM="${SIMULATORS[0]}"
-        SIZE="6.7"
-        ;;
-    2)
-        SELECTED_SIM="${SIMULATORS[1]}"
-        SIZE="6.5"
-        ;;
-    3)
-        SELECTED_SIM="${SIMULATORS[2]}"
-        SIZE="5.5"
-        ;;
-    4)
-        echo "将在所有模拟器上运行"
-        ;;
-    *)
-        echo "❌ 无效选项"
-        exit 1
-        ;;
-esac
+# 倒计时时长（秒），可通过 COUNTDOWN_SECONDS 覆盖
+COUNTDOWN_SECONDS=${COUNTDOWN_SECONDS:-8}
 
-# 截图函数
+# 获取模拟器 UDID
+get_simulator_udid() {
+    local name="$1"
+    xcrun simctl list devices | \
+        grep -F "$name (" | \
+        grep -v "unavailable" | \
+        head -1 | \
+        awk -F '[()]' 'NF>1 {print $2}'
+}
+
+countdown() {
+    local seconds=$1
+    local message=$2
+
+    echo ""
+    echo "$message"
+    for ((s=seconds; s>0; s--)); do
+        printf "   ⏳ %2d 秒后自动截图\r" "$s"
+        sleep 1
+    done
+    echo -e "   ⏳  0 秒 - 开始截图            "
+}
+
+sanitize_name() {
+    echo "$1" | tr ' ' '_'
+}
+
 take_screenshot() {
-    local simulator_name=$1
-    local size_name=$2
-    local shot_num=$3
-    
-    echo "📸 正在截图 $shot_num..."
-    
-    local filename="${SCREENSHOT_DIR}/StarMatch_${size_name}_screenshot_${shot_num}.png"
-    
-    xcrun simctl io booted screenshot "$filename"
-    
-    if [ $? -eq 0 ]; then
-        echo "✅ 截图成功: $(basename $filename)"
+    local simulator_udid=$1
+    local size=$2
+    local shot_label=$3
+    local simulator_tag
+    simulator_tag=$(sanitize_name "$4")
+
+    local filename="${SCREENSHOT_DIR}/StarMagician_${simulator_tag}_${shot_label}_${size}.png"
+
+    if xcrun simctl io "$simulator_udid" screenshot "$filename" >/dev/null 2>&1; then
+        echo "   ✅ 已保存: $(basename "$filename")"
     else
-        echo "❌ 截图失败"
+        echo "   ❌ 截图失败: $(basename "$filename")"
     fi
 }
 
-# 启动模拟器并截图
 capture_on_simulator() {
     local simulator=$1
     local size=$2
-    
+    local simulator_tag
+    simulator_tag=$(sanitize_name "$simulator")
+
+    local simulator_udid
+    simulator_udid=$(get_simulator_udid "$simulator")
+
+    if [ -z "$simulator_udid" ]; then
+        echo "❌ 未找到模拟器: $simulator"
+        return
+    fi
+
     echo ""
     echo "🚀 启动模拟器: $simulator"
-    
-    # 启动模拟器
-    xcrun simctl boot "$simulator" 2>/dev/null
-    
-    # 等待模拟器启动
+    xcrun simctl boot "$simulator_udid" >/dev/null 2>&1 || true
+
     echo "⏳ 等待模拟器启动..."
+    sleep 4
+
+    # 将模拟器窗口置前
+    open -a Simulator >/dev/null 2>&1 || true
     sleep 3
-    
-    # 打开模拟器窗口
-    open -a Simulator
-    sleep 2
-    
+
     echo ""
-    echo "📱 模拟器已启动"
+    echo "📱 请确保应用已在 $simulator 上运行。"
+    echo "   将脚本启动时，游戏应处于截图所需状态。"
+
+    for index in "${!SHOT_SPECS[@]}"; do
+        local spec="${SHOT_SPECS[$index]}"
+        local description="${spec%%|*}"
+        local label="${spec##*|}"
+        local shot_num=$(printf "%02d" $((index + 1)))
+
+        countdown "$COUNTDOWN_SECONDS" "📸 截图 ${shot_num}/5 - $description"
+        take_screenshot "$simulator_udid" "$size" "${shot_num}-${label}" "$simulator"
+    done
+
     echo ""
-    echo "⚠️  接下来需要手动操作："
-    echo "   1. 在Xcode中运行应用到此模拟器"
-    echo "   2. 调整游戏到需要截图的状态"
-    echo "   3. 按回车键开始截图"
-    echo ""
-    read -p "准备好后按回车继续..."
-    
-    # 截图
-    echo ""
-    echo "开始截图流程..."
-    echo "（每张截图之间会有5秒间隔，请调整游戏状态）"
-    echo ""
-    
-    # 截图1 - 主界面
-    echo "📸 截图 1/5 - 主界面（游戏标题和完整布局）"
-    read -p "   准备好后按回车截图..." 
-    take_screenshot "$simulator" "$size" "01"
-    sleep 2
-    
-    # 截图2 - 游戏中
-    echo ""
-    echo "📸 截图 2/5 - 游戏进行中（选中宝石状态）"
-    echo "   请在游戏中选择一个宝石，展示交互效果"
-    read -p "   准备好后按回车截图..."
-    take_screenshot "$simulator" "$size" "02"
-    sleep 2
-    
-    # 截图3 - 消除
-    echo ""
-    echo "📸 截图 3/5 - 消除瞬间（动画效果）"
-    echo "   请进行一次消除，捕捉消除动画"
-    read -p "   准备好后按回车截图..."
-    take_screenshot "$simulator" "$size" "03"
-    sleep 2
-    
-    # 截图4 - 高分
-    echo ""
-    echo "📸 截图 4/5 - 高分展示（分数较高）"
-    echo "   建议分数至少300+，展示游戏深度"
-    read -p "   准备好后按回车截图..."
-    take_screenshot "$simulator" "$size" "04"
-    sleep 2
-    
-    # 截图5 - 游戏结束
-    echo ""
-    echo "📸 截图 5/5 - 游戏结束界面"
-    echo "   请让游戏结束，显示结束对话框"
-    read -p "   准备好后按回车截图..."
-    take_screenshot "$simulator" "$size" "05"
-    
-    echo ""
-    echo "✅ $simulator 截图完成！"
-    
-    # 关闭模拟器
-    read -p "是否关闭此模拟器？(y/n): " close_sim
-    if [ "$close_sim" = "y" ]; then
-        xcrun simctl shutdown "$simulator"
-        echo "已关闭模拟器"
-    fi
+    echo "✅ $simulator 截图完成，正在关闭模拟器..."
+    xcrun simctl shutdown "$simulator_udid" >/dev/null 2>&1 || true
 }
 
-# 执行截图
-if [ $choice -eq 4 ]; then
-    # 在所有模拟器上截图
-    for i in 0 1 2; do
-        sim="${SIMULATORS[$i]}"
-        if [ $i -eq 0 ]; then
-            size="6.7"
-        elif [ $i -eq 1 ]; then
-            size="6.5"
-        else
-            size="5.5"
-        fi
-        
-        capture_on_simulator "$sim" "$size"
-        
-        if [ $i -lt 2 ]; then
-            echo ""
-            echo "准备切换到下一个模拟器..."
-            read -p "按回车继续..."
-        fi
-    done
-else
-    # 在选定的模拟器上截图
-    capture_on_simulator "$SELECTED_SIM" "$SIZE"
-fi
+echo "📋 将按以下顺序自动截图："
+for sim_entry in "${SIMULATORS[@]}"; do
+    sim_name="${sim_entry%%|*}"
+    echo "   • $sim_name"
+done
+echo ""
+echo "🕒 每张截图前会自动倒计时 ${COUNTDOWN_SECONDS} 秒，可在此期间快速调整画面。"
+echo "   如需更多时间，可重新运行脚本并设置 COUNTDOWN_SECONDS（例如：COUNTDOWN_SECONDS=12 ./快速截图脚本.sh）"
+echo ""
+
+for entry in "${SIMULATORS[@]}"; do
+    simulator="${entry%%|*}"
+    size="${entry##*|}"
+    capture_on_simulator "$simulator" "$size"
+done
 
 echo ""
-echo "🎉 所有截图已完成！"
-echo ""
+echo "🎉 全部截图已完成！"
 echo "📁 截图保存位置: $SCREENSHOT_DIR"
 echo ""
-echo "下一步："
-echo "1. 检查截图质量"
-echo "2. （可选）使用在线工具添加设备边框"
-echo "3. （可选）添加文字说明"
-echo "4. 上传到App Store Connect"
-echo ""
-echo "如需为不同语言截图，请："
-echo "1. 在iOS设置中更改系统语言"
-echo "2. 重新运行此脚本"
+echo "📸 提示：如需多语言截图，请切换模拟器系统语言后再次运行脚本。"
 echo ""
 
-# 打开截图文件夹
-read -p "是否打开截图文件夹？(y/n): " open_folder
-if [ "$open_folder" = "y" ]; then
-    open "$SCREENSHOT_DIR"
-fi
+# 自动打开截图目录
+open "$SCREENSHOT_DIR" >/dev/null 2>&1 || true
 
-echo ""
-echo "📧 如有问题，请联系: 279694479@qq.com"
-echo ""
-echo "完成！✨"
+echo "📧 如有疑问，请联系: 279694479@qq.com"
+echo "✨ 完成！"
 
